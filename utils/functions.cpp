@@ -14,7 +14,7 @@ ssize_t recv_line(int socket, char *buffer, size_t size) {
         char c;
         ssize_t bytes_received = recv(socket, &c, 1, 0);
         if (bytes_received <= 0) {
-            return bytes_received; // Return 0 or -1
+            return bytes_received; // Return 0 (connection closed) or -1 (error)
         }
         buffer[total_received++] = c;
         if (c == '\n') {

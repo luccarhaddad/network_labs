@@ -33,6 +33,11 @@ make run_server
 make run_client
 ```
 
+- Fecha a conexão na interface do cliente:
+```
+exit
+```
+
 ### Notas Adicionais
 
 - Certifique-se de que os arquivos Makefile, server.cpp, client.cpp e as funções auxiliares estejam corretamente configurados.
@@ -40,6 +45,8 @@ make run_client
 - O servidor e o cliente se comunicam através do protocolo TCP na porta **8000**.
 
 - Para testes, certifique-se de que o arquivo que deseja acessar com o comando MyGet esteja presente no diretório correto.
+
+- Para fins educacionais, o código apresenta diversos comentários explicativos.
 
 ---
 
@@ -77,6 +84,11 @@ make run_server
 make run_client
 ```
 
+- Close the connection on client's interface:
+```
+exit
+```
+
 ### Notas Adicionais
 
 - Ensure that the Makefile, server.c, client.c, and auxiliary functions are properly set up.
@@ -84,3 +96,5 @@ make run_client
 - The server and client communicate via TCP protocol on port **8000**.
 
 - For testing purposes, make sure that the file you wish to access with the MyGet command is present in the correct directory.
+
+- For educational purposes, there are several explaining comments through the code.
