@@ -1,10 +1,10 @@
-# Variables
+# Variáveis
 CC = gcc
-CFLAGS = -Wall -pthread
-OBJ_SERVER = server.o
-OBJ_CLIENT = client.o
+CFLAGS = -Wall -pthread -Iutils
+OBJ_SERVER = server.o utils/functions.o
+OBJ_CLIENT = client.o utils/functions.o
 
-# Phony targets
+# Alvos phony
 .PHONY: all clean run_server run_client
 
 all: server client
@@ -21,6 +21,9 @@ server.o: server.cpp
 client.o: client.cpp
 	$(CC) $(CFLAGS) -c client.cpp -o client.o
 
+utils/functions.o: utils/functions.cpp
+	$(CC) $(CFLAGS) -c utils/functions.cpp -o utils/functions.o
+
 run_server: server
 	./server
 
@@ -28,4 +31,4 @@ run_client: client
 	./client
 
 clean:
-	rm -f server client $(OBJ_SERVER) $(OBJ_CLIENT)
+	rm -f server client server.o client.o utils/functions.o

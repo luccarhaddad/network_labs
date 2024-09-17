@@ -2,18 +2,13 @@
 // Created by Lucca Haddad on 11/09/24.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <pthread.h>    // threads management
 #include <netdb.h>
 #include <arpa/inet.h>  // inet_ntop and socket structures
 #include <netinet/in.h> // socket structures
-#include <sys/socket.h> // socket functions
 #include <sys/fcntl.h>
-#include <sys/types.h>
 #include <time.h>       // time manipulation
+#include "utils/functions.h"
 
 #define PORT 8000              // arbitrary, but client & server must agree
 #define BUFFER_SIZE 4096              // block transfer size
@@ -27,31 +22,6 @@ typedef struct ClientInfo {
 
 ClientInfo *client_list = NULL;       // global linked list to store clients
 pthread_mutex_t client_list_mutex;    // ensures safe access to linked list by multiple threads
-
-void trim_newline(char* str){
-    size_t len = strlen(str);
-    while(len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r' || str[len - 1] == ' ')) {
-        str[len - 1] = '\0';
-        len--;
-    }
-}
-
-ssize_t recv_line(int socket, char *buffer, size_t size) {
-    ssize_t total_received = 0;
-    while (total_received < size - 1) {
-        char c;
-        ssize_t bytes_received = recv(socket, &c, 1, 0);
-        if (bytes_received <= 0) {
-            return bytes_received; // Return 0 or -1
-        }
-        buffer[total_received++] = c;
-        if (c == '\n') {
-            break;
-        }
-    }
-    buffer[total_received] = '\0';
-    return total_received;
-}
 
 void update_client_access(const char *ip_address, unsigned short port) {
     pthread_mutex_lock(&client_list_mutex); // ensures unique thread access
